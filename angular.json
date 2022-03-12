@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "labmoviles-32": {
+    "ionic-angular-1FM045": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,17 +17,55 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/labmoviles-32",
+            "outputPath": "dist/ionic-angular-1-fm045",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "src/styles.css"
+              "src/estilos.css",
+              {
+                "input": "node_modules/@ionic/angular/css/core.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/normalize.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/structure.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/typography.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/display.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/padding.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/float-elements.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-alignment.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/text-transformation.css"
+              },
+              {
+                "input": "node_modules/@ionic/angular/css/flex-utils.css"
+              },
+              {
+                "input": "src/theme/variables.css"
+              }
             ],
             "scripts": []
           },
@@ -68,10 +106,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "labmoviles-32:build:production"
+              "browserTarget": "ionic-angular-1FM045:build:production"
             },
             "development": {
-              "browserTarget": "labmoviles-32:build:development"
+              "browserTarget": "ionic-angular-1FM045:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +117,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "labmoviles-32:build"
+            "browserTarget": "ionic-angular-1FM045:build"
           }
         },
         "test": {
@@ -91,16 +129,45 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "src/styles.css"
+              "src/estilos.css"
             ],
             "scripts": []
+          }
+        },
+        "ionic-cordova-serve": {
+          "builder": "@ionic/angular-toolkit:cordova-serve",
+          "options": {
+            "cordovaBuildTarget": "ionic-angular-1FM045:ionic-cordova-build",
+            "devServerTarget": "ionic-angular-1FM045:serve"
+          },
+          "configurations": {
+            "production": {
+              "cordovaBuildTarget": "ionic-angular-1FM045:ionic-cordova-build:production",
+              "devServerTarget": "ionic-angular-1FM045:serve:production"
+            }
+          }
+        },
+        "ionic-cordova-build": {
+          "builder": "@ionic/angular-toolkit:cordova-build",
+          "options": {
+            "browserTarget": "ionic-angular-1FM045:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ionic-angular-1FM045:build:production"
+            }
           }
         }
       }
     }
   },
-  "defaultProject": "labmoviles-32"
+  "defaultProject": "ionic-angular-1FM045"
 }
