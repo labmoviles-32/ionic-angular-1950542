@@ -11,38 +11,38 @@ export class AlumnosComponent implements OnInit {
 
   alumnos = [
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     },
     {
-      "nombre": "Abraham", 
-      "apellido": "Ramirez", 
+      "nombre": "Yuliana", 
+      "apellido": "Mares", 
       "matricula": "ABC123"
     }
   ]

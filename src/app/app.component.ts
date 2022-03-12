@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ionic-angular-1FM045';
+  title = 'ionic-angular-1950542';
 }
