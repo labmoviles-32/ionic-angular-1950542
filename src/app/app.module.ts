@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { TabsComponent } from './tabs/tabs.component';
 import { AlumnoDetalleComponent } from './alumno-detalle/alumno-detalle.component';
 
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { AlumnoDetalleComponent } from './alumno-detalle/alumno-detalle.componen
     FormsModule,
     AppRoutingModule,
     RoutesModule, 
+    HttpClientModule,
     IonicModule.forRoot()
   ],
   providers: [],

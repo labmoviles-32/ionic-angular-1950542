@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-alumnos',
@@ -7,93 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AlumnosComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  alumnos = [
-    {
-      "nombre": "CLAUDIA YULIANA ", 
-      "apellido": "MARES RODRÍGUEZ", 
-      "matricula": "cymrcymr"
-    },
-    {
-      "nombre": "SAMUEL", 
-      "apellido": "SALAZAR LEAL", 
-      "matricula": "sslssl"
-    },
-    
-    {
-      "nombre": "ALONDRA BERENISE", 
-      "apellido": "ZAMORA MORENO", 
-      "matricula": "abzmabzm"
-    },
-    {
-      "nombre": "IVAN MARCELO", 
-      "apellido": " RAMIREZ HNILICKA", 
-      "matricula": "imrhimrh"
-    },
-    {
-      "nombre": "RODRIGO ANTONIO", 
-      "apellido": "MARTINEZ MACIAS", 
-      "matricula": "rammramm"
-    },
-    {
-      "nombre": "MANUEL FERNANDO", 
-      "apellido": "RIVERA DE LEON", 
-      "matricula": "mfrlmfrl"
-    },
-    {
-      "nombre": "LUIS CARLOS", 
-      "apellido": "HERNANDEZ RIVERA", 
-      "matricula": "lchrlchr"
-    },
-    {
-      "nombre": "SAUL", 
-      "apellido": "DAVILA GONZALEZ", 
-      "matricula": "sdgsdg"
-    },
-    {
-      "nombre": "SANTIAGO ELIAM", 
-      "apellido": "RAMIREZ GARCIA", 
-      "matricula": "sergserg"
-    },
-    {
-      "nombre": "MIGUEL ANGEL", 
-      "apellido": "SANCHEZ CARRILLO", 
-      "matricula": "mascmasc"
-    },
-    {
-      "nombre": "JOSE ANTONIO", 
-      "apellido": "CANO JARAMILLO", 
-      "matricula": "jacjjacj"
-    },
-    {
-      "nombre": "JUAN FRANCISCO", 
-      "apellido": "LOPEZ BARRIENTOS", 
-      "matricula": "jflbjflb"
-    },
-    {
-      "nombre": "MIGUEL GIOVANNY", 
-      "apellido": "VARGAS CANTU", 
-      "matricula": "mgvcmgcv"
-    },
-    {
-      "nombre": "ALEJANDRO", 
-      "apellido": "BELTRAN ALVARADO", 
-      "matricula": "abaaba"
-    },
-    {
-      "nombre": "RICARDO ", 
-      "apellido": "HERRERA ROMERO", 
-      "matricula": "rhmrhm"
-    }, 
-    {
-      "nombre": "CRISTHIAN IOANNE ANGEL", 
-      "apellido": "JUAREZ TOBIAS", 
-      "matricula": "ciajtciajt"
-    }
-  ]
+  alumnos: any = [];
 
   ngOnInit(): void {
+    this.getAlumnos().subscribe(res=> {
+      console.log(res);
+      this.alumnos = res;
+    })
   }
 
 
@@ -103,6 +26,17 @@ export class AlumnosComponent implements OnInit {
 
 
   hola: string = "hola mundo";
+
+
+  getAlumnos(){
+    //hacer solicitud http para obtener lista de alumnos
+    return this.http.get('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos.json')
+    }
+  
+  like(): void{
+    //dar like a este elemento
+    console.log("like!");
+  }
 
   agregarAlumno(): void {
     var nuevoAlumno: any = {
