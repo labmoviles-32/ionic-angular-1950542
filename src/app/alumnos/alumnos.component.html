@@ -1,0 +1,50 @@
+<ion-list>
+    <ion-item-sliding *ngFor="let alumno of alumnos; let id = index">
+        <ion-item [routerLink]="['/alumno-detalle', id]">
+            <img src="assets/imagenes/logo-uanl.jpg" alt="" width="50px">
+            <ion-label>{{alumno.nombre}}</ion-label>
+        </ion-item>
+        <ion-modal trigger="editar--{{id}}">
+            <ng-template>
+                <ion-grid>
+                    <ion-row>
+                       <ion-col size="12">
+                           <ion-label>Nombre:</ion-label>
+                       </ion-col> 
+                       <ion-col size="12">
+                        <ion-input placeholder="Ejemplo: Claudia Yuliana"></ion-input>
+                    </ion-col> 
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-label>Apellido:</ion-label>
+                        </ion-col> 
+                        <ion-col size="12">
+                         <ion-input placeholder="Ejemplo: Mares Rodriguez"></ion-input>
+                     </ion-col> 
+                     </ion-row>
+                     <ion-row>
+                         <ion-button (click)="guardar()">Guardar</ion-button>
+                     </ion-row>
+                </ion-grid>
+            </ng-template>
+        </ion-modal>
+
+        <ion-item-options side="start">
+            <ion-item-option color="tertiary" (click)="like()">
+                <ion-icon name="star">Favorite</ion-icon>
+            </ion-item-option>
+        </ion-item-options>
+
+            <ion-item-options side="end">
+                <ion-item-option color="primary">
+                    <ion-icon name="create-outline" id="editar--{{id}}"></ion-icon>
+                </ion-item-option>
+
+                <ion-item-option color="danger" (click)="borrar(id)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+    </ion-item-sliding>
+
+    </ion-list>
