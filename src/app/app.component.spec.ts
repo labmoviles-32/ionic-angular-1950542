@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title '2ABRIL'`, () => {
+  it(`should have as title 'ionic-angular-1950542'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('2ABRIL');
+    expect(app.title).toEqual('ionic-angular-1950542');
   });
 
   it('should render title', () => {

@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AlumnosComponent } from '../alumnos/alumnos.component';
+import { AlumnoListaComponent } from '../alumno-lista/alumno-lista.component';
 import { AlumnoDetalleComponent } from '../alumno-detalle/alumno-detalle.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AlumnosComponent } from '../alumnos/alumnos.component';
+
 
 const rutas: Routes = [
-  { path: 'alumno-detalle/:index', component: AlumnoDetalleComponent },
   { path: 'inicio', component: AlumnosComponent },
-  { path: 'tab2', component: AlumnosComponent },
-  { path: 'tab3', component: AlumnosComponent}
+  { path: 'lista', component: AlumnoListaComponent },
+  { path: 'alumno-detalle/:matricula', component: AlumnoDetalleComponent}
 ]
 
 @NgModule({

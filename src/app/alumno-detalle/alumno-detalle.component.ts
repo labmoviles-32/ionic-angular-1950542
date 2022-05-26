@@ -1,11 +1,8 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { ActionSheetController } from '@ionic/angular';
-
 import { DatabaseService } from '../database.service';
-
-import { Alumno } from '../alumno';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-alumno-detalle',
@@ -17,59 +14,69 @@ export class AlumnoDetalleComponent implements OnInit {
   constructor(
     private ruta: ActivatedRoute,
     public actionSheetController: ActionSheetController,
-    private db: DatabaseService) { }
+    private db: DatabaseService,
+    public formBuilder : FormBuilder) { }
 
-  ngOnInit(): void {
-    this.getAlumnoDetalle(this.id);
-  }
-
-  alumnoDetalle: any = {}
-
-  id: number = this.ruta.snapshot.params['index'];
-
-  getAlumnoDetalle (id: number): any {
-    this.db.getAlumnoDetalle(id).subscribe(res => {
-      let alumno = Object.assign(res);
-      this.alumnoDetalle = res;
-      this.alumnoNuevosDatos = alumno;
+    alumnoDetalle: any = {}
+    search : string = '';
+    mat : string = this.ruta.snapshot.params['matricula'];
+    editar: boolean = false;
+    ionicForm! : FormGroup;
+    isSubmitted = false;
+    
+    ngOnInit(): void {
+    console.log(this.mat);
+    this.db.getAlumnoDetalle(this.mat).subscribe(resp => {
+      console.log(resp);
+      this.alumnoDetalle = Object.values(resp)[0];
+      this.search = Object.keys(resp).toString();
+    })
+    this.ionicForm = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      matricula: ['', [Validators.required, Validators.minLength(2)]],
     })
   }
 
-  editando = false;
-  editar(){
-    this.editando = true;
+  regresar(){
+    window.location.href='/lista';
+  }
+
+  eliminar(){
+    console.log(this.search);
+    this.db.deleteAlumno(this.search).subscribe(resp => {
+      if(resp == null){
+        console.log('Borro algo....');
+        window.location.href="/lista";
+      }else{
+        console.log('No se logro borrar');
+      }
+    });
+  }
+
+  toggleEdit(){
+    this.editar = !this.editar;
+  }
+
+  submitForm(){
+    this.isSubmitted = true;
+    if(!this.ionicForm.valid) {
+      console.log('Please provide all the required values!')
+      return false;
+    } else {
+      console.log(this.ionicForm.value)
+      this.db.actualizarAlumno(this.ionicForm.value, this.search).subscribe(res => {
+        console.log(res);
+      })
+      window.location.href ="/lista";
+      return true;
+    }
+  }
+
+  agregarFavoritos(): void{
+
   }
   
-
-  guardar(){
-    this.db.updateAlumno(this.id, this.alumnoNuevosDatos).subscribe(res => {
-      console.log(res);
-    });
-    this.editando = false;
-  }
-
-  alumnoNuevosDatos : Alumno = {
-    nombre: "",
-    apellido: "",
-    matricula: ""
-  }
-
-  //matricula: string = this.ruta.snapshot.params['matricula'];
-  /*getAlumnoDetalle(matricula: string): any {
-
-    for(let i = 0; i < this.alumnos.length; i++){ //Ciclo para buscar alumno por matricula
-      if(this.alumnos[i].matricula == this.matricula) { //valida si la matricula coincide en ese alumno
-        this.alumnoDetalle = this.alumnos[i]; // asignar alumno a alumno detlle
-      }
-    }
-
-    return this.alumnoDetalle;
-  }*/
-
-  agregarFavoritos(): void {
-    //algo
-  }
-
   async abrirActionSheet() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones',
@@ -85,6 +92,7 @@ export class AlumnoDetalleComponent implements OnInit {
         },
         handler: () => {
           console.log('Delete');
+          this.eliminar();
         }
       }, {
         text: 'Compartir',
@@ -104,8 +112,7 @@ export class AlumnoDetalleComponent implements OnInit {
         text: 'Favorito',
         icon: 'heart',
         handler: () => {
-          this.agregarFavoritos
-          //console.log('Favorite clicked');
+          this.agregarFavoritos();
         }
       }, {
         text: 'Cancelar',

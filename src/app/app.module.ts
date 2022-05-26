@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AlumnosComponent } from './alumnos/alumnos.component';
 import { IonicModule } from '@ionic/angular';
-
-import { RoutesModule } from './routes/routes.module';
-
-import { FormsModule } from '@angular/forms';
+import { AlumnosComponent } from './alumnos/alumnos.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabsComponent } from './tabs/tabs.component';
+import { AlumnoListaComponent } from './alumno-lista/alumno-lista.component';
 import { AlumnoDetalleComponent } from './alumno-detalle/alumno-detalle.component';
-
+import { RoutesModule } from './routes/routes.module';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from 'src/environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -19,15 +19,19 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     AlumnosComponent,
     TabsComponent,
-    AlumnoDetalleComponent
+    AlumnoDetalleComponent,
+    AlumnoListaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     RoutesModule, 
+    IonicModule.forRoot(),
+    provideFirebaseApp(()=> initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
     HttpClientModule,
-    IonicModule.forRoot()
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

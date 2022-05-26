@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ɵisListLikeIterable } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-alumnos',
@@ -8,58 +9,48 @@ import { DatabaseService } from '../database.service';
 })
 export class AlumnosComponent implements OnInit {
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseService, public formBuilder : FormBuilder) { }
 
   alumnos: any = []
-
-  ngOnInit(): void {
-    this.consultaDBAlumnos()
-  }
+  AltaForm! : FormGroup;
+  isSubmitted = false;
 
   @Input() nombreAlumno: string = "";
   @Input() apellidoAlumno: string = "";
   @Input() matriculaAlumno: string = "";
 
-
-  hola: string = "hola, mundo!";
-
-  consultaDBAlumnos(){
-    this.db.getAlumnos().subscribe(res => {
-      console.log(res);
-      this.alumnos = res;
-    })
-  }
-
-  like(): void {
-    console.log("like!!");
-  }
-
-  editando = false;
-  editar(): void {
-    this.editando = true;
-    //EDITAR
-  }
-
-  guardar(): void {
-
-  }
-
-  borrar(id: number): void {
-    this.db.deleteAlumno(id).subscribe(res => {
-      alert("¡Alumno borrado!")
-    })
-  }
-
-
-  agregarAlumno(): void {
-    var nuevoAlumno: any = {
-      "nombre": this.nombreAlumno,
-      "apellido": this.apellidoAlumno,
-      "matricula": this.matriculaAlumno
+  agregarAlumnos(): void {
+    if(this.nombreAlumno.length==0 || this.apellidoAlumno.length==0 || this.matriculaAlumno.length==0){
+      alert("Rellene todos los campos");
     }
+    else{
+      var nuevoAlumno: any = {
+        "nombre": this.nombreAlumno,
+        "apellido": this.apellidoAlumno,
+        "matricula": this.matriculaAlumno
+      }
+      this.alumnos.push(nuevoAlumno); 
+    }
+  }
 
-    //console.log(nuevoAlumno);
+  ngOnInit(): void {
+    this.AltaForm = this.formBuilder.group({
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      matricula: ['', [Validators.required, Validators.minLength(2)]]
+    })
+  }
 
-    this.alumnos.push(nuevoAlumno); //Funcion en TypeScript 
+  SubirForm(){
+    this.isSubmitted = true;
+    if(!this.AltaForm.valid){
+      console.log('Please provide all the required values!')
+      return false;
+    }else {
+      console.log(this.AltaForm.value);
+      this.alumnos = this.alumnos.concat(this.AltaForm.value);
+      this.db.postAlumno(this.AltaForm.value);
+      return true;
+    }
   }
 }
