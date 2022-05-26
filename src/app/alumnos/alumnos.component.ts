@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ɵisListLikeIterable } from '@angular/core';
 import { DatabaseService } from '../database.service';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Alumno } from '../models/alumno';
 
 @Component({
   selector: 'app-alumnos',
@@ -50,6 +51,7 @@ export class AlumnosComponent implements OnInit {
       console.log(this.AltaForm.value);
       this.alumnos = this.alumnos.concat(this.AltaForm.value);
       this.db.postAlumno(this.AltaForm.value);
+      this.AltaForm.reset();
       return true;
     }
   }

@@ -68,7 +68,7 @@ export class AlumnoDetalleComponent implements OnInit {
       this.db.actualizarAlumno(this.ionicForm.value, this.search).subscribe(res => {
         console.log(res);
       })
-      window.location.href ="/lista";
+      window.location.href="/lista";
       return true;
     }
   }
