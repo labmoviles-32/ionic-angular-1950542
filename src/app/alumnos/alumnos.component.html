@@ -1,0 +1,51 @@
+
+        <ion-grid class="con-bg">
+            <ion-row id="registroAlumno">
+                <ion-col size="12">
+                    <ion-label>Nombre:</ion-label> {{nombreAlumno}}
+                    <ion-input id="nombre" placeholder="Ejemplo: Samuel" [(ngModel)]="nombreAlumno"></ion-input>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-label>Apellido:</ion-label> {{apellidoAlumno}}
+                    <ion-input id="apellido" placeholder="Ejemplo: Martinez" [(ngModel)]="apellidoAlumno"></ion-input>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-label>Matricula:</ion-label> {{matriculaAlumno}}
+                    <ion-input id="matricula" placeholder="Ejemplo: ABC123" [(ngModel)]="matriculaAlumno"></ion-input>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-button (click)="agregarAlumno()">Agregar Alumno</ion-button>
+                </ion-col>
+            </ion-row>
+           <ion-row *ngFor="let alumno of alumnos">
+               <ion-col>
+                <ion-card> 
+                    <ion-card-content>
+                        <ion-grid> <!--Contenido de la tarjeta-->
+                            <ion-row>
+                                <ion-col> <!--Columna izquierda-->
+                                    <ion-grid>
+                                        <ion-row>
+                                            <ion-col size-lg="4" size="12">Nombre:</ion-col>
+                                            <ion-col size-lg="4" size="12"><strong>{{alumno.nombre}}</strong> </ion-col>
+                                        </ion-row>
+                                        <ion-row>
+                                            <ion-col size-lg="4" size="12">Apellido: </ion-col>
+                                            <ion-col size-lg="4" size="12"><strong>{{alumno.apellido}}</strong> </ion-col>
+                                        </ion-row>
+                                        <ion-row>
+                                            <ion-col size-lg="4" size="12">Matricula: </ion-col>
+                                            <ion-col size-lg="4" size="12"><strong>{{alumno.matricula}}</strong> </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-col>
+                                <ion-col class="logo"> <!--Columna derecha-->
+                                    <img src="assets/imagenes/logo-uanl.jpg" alt="logo Facultad de Ciencias Fisico Matematicas UANL" width="120px">
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-card-content>
+                </ion-card>
+               </ion-col>
+           </ion-row>
+        </ion-grid>
