@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../database.service';
-import { Alumno } from '../models/alumno';
 
 @Component({
   selector: 'app-alumno-lista',
@@ -9,23 +8,24 @@ import { Alumno } from '../models/alumno';
 })
 export class AlumnoListaComponent implements OnInit {
 
-  constructor( private db : DatabaseService) { }
+  constructor( private bd : DatabaseService) { }
 
   tester : any = []
-  lista : Alumno[] = [];
+  alumnos: any = []
   filtro : string = '';
 
   ngOnInit(): void {
-    this.db.getListaAlumnos().subscribe(resp => {
-      console.log(resp);
+    this.bd.getListaAlumnos().subscribe(resp => {
+      console.log(Object.values(resp));
       this.tester = Object.values(resp);
-      console.log(this.tester);
-      for (let test of this.tester){
-        if(test != null){
-          this.lista = this.lista.concat(test);
+      console.log(this.alumnos);
+      for (let test of this.tester)
+      {
+        if(test != null)
+        {
+         this.alumnos.push(test);
         }
       }
-      console.log(this.lista);
     })
   }
 
@@ -34,12 +34,12 @@ export class AlumnoListaComponent implements OnInit {
     console.log(obj);
     console.log(Object.values(obj)[1]);
 
-    this.db.getAlumnoDetalle(Object.values(obj)[1]).subscribe(resp => {
+    this.bd.getAlumnoDetalle(Object.values(obj)[1]).subscribe(resp => {
       console.log(resp);
       console.log(Object.keys(resp).toString());
 
       let name = Object.keys(resp).toString();
-      this.db.deleteAlumno(name).subscribe(delresp => {
+      this.bd.deleteAlumno(name).subscribe(delresp => {
         console.log(delresp);
         if(delresp == null){
           console.log('Se borro algo....');
