@@ -9,7 +9,7 @@
 
 <ion-grid class="con-bg">
     <ion-list>
-        <ion-item-sliding *ngFor="let alumno of alumnos; let id = index">
+        <ion-item-sliding *ngFor="let alumno of lista  | filter:filtro ; let id = index">
             <ion-item [routerLink]="['/alumno-detalle', alumno.matricula]">
                 <img src = "assets/imagenes/logo-uanl.jpg" width="50px">
                 <ion-label>{{alumno.nombre}}</ion-label>

@@ -13,21 +13,19 @@ export class DatabaseService {
     return this.http.get('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos/.json');
   }
 
-  getAlumnoDetalle (id: string) {
-    return this.http.get('https://alumnos-32-3679b-default-rtdb.firebaseio.com'+`/alumnos.json?orderBy="matricula"&equalTo=`+id+`"`);
+  getAlumnoDetalle(id: string) {
+    return this.http.get('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos'+id+ '.json');
   }
 
   deleteAlumno(id: string) {
-    console.log(id);
     return this.http.delete('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos/'+id+'.json');
   }
 
   postAlumno(objeto : Object){
-    this.http.post(environment.firebase.databaseURL+`/alumnos.json`, objeto).subscribe(resp => {console.log(resp)});
+    this.http.post('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos.json/', objeto).subscribe(resp => {console.log(resp)});
   }
 
-  actualizarAlumno(obj: Object, index: string) {
-    let text = JSON.stringify(obj);
-    return this.http.put('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos/'+index+`.json`, text);
+  updateAlumno(index : string, alu:any) {
+    return this.http.put('https://alumnos-32-3679b-default-rtdb.firebaseio.com/alumnos/'+index+'.json', alu);
   }
 }

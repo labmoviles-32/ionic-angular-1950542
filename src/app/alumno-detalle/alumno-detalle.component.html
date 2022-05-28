@@ -1,37 +1,93 @@
-<ion-card>
-    <ion-card-content>
-        <p>Nombre: <strong>{{alumnoDetalle.nombre}}</strong></p>
-        <p>Apellido: <strong>{{alumnoDetalle.apellido}}</strong></p>
-        <p>Matricula: <strong>{{alumnoDetalle.matricula}}</strong></p>
-        <div>
-            <ion-button (click)="regresar()">Volver</ion-button>
-            <ion-button (click)="abrirActionSheet()">Mostrar Action Sheet</ion-button>
-            <ion-button (click)="toggleEdit()">Editar</ion-button>
-        </div>
-    </ion-card-content>
-    <ion-grid *ngIf="editar">
-        <ion-card>
-            <ion-card-content>
-                <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate>
+<ion-content>
+    <ion-button routerLink="/">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+        <ion-label> Regresar</ion-label>
+    </ion-button>
+    <ion-card>
+        <ion-card-header>
+            <img src="/assets/img/logo.png" alt="" class="img">
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col class="etiqueta">
+                        Nombre:
+                    </ion-col>
+                    <ion-col>
+                        <strong>{{alumno.nombre}}</strong>
+                    </ion-col>
+                </ion-row>
+                
+                <ion-row>
+                    <ion-col class="etiqueta">
+                        Apellido:
+                    </ion-col>
+                    <ion-col>
+                        <strong>{{alumno.apellido}}</strong>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col class="etiqueta">
+                        Matricula:
+                    </ion-col>
+                    <ion-col>
+                        <strong>{{alumno.matricula}}</strong>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-button id="edit">Editar Alumno</ion-button>
+    
+    <ion-modal trigger="edit">
+        <ng-template>
+            <ion-grid>
+                <ion-card>
+                    <ion-card-content>
+                <ion-row>
                     <ion-item lines="full">
-                        <ion-label position="floating">Nombres</ion-label>
-                            <ion-input type="text" formControlName="nombre" required></ion-input>
-                    </ion-item>
+                        <ion-label  mode="ios">Nombre:</ion-label>
+                    </ion-item> 
+
+                    <ion-col>
+                        <ion-input type="text" [(ngModel)]="alumno.nombre" required position="fixed" mode="ios"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
                     <ion-item lines="full">
-                        <ion-label position="floating">Apellidos</ion-label>
-                            <ion-input type="text" formControlName="apellido" required></ion-input>
-                    </ion-item>
+                        <ion-label  mode="ios">Apellido:</ion-label>
+                    </ion-item> 
+
+                    <ion-col>
+                        <ion-input type="text" [(ngModel)]="alumno.apellido" mode="ios"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
                     <ion-item lines="full">
-                        <ion-label position="floating">Matricula</ion-label>
-                            <ion-input type="text" formControlName="matricula" required></ion-input>
-                    </ion-item>
-                    <ion-row>
-                        <ion-col>
-                            <ion-button type="submit" color="success" expand="block">Confirmar</ion-button>
-                        </ion-col>
-                    </ion-row>
-                </form>
+                        <ion-label  mode="ios">Matricula:</ion-label>
+                    </ion-item> 
+
+                    <ion-col>
+                        <ion-input type="text" [(ngModel)]="alumno.matricula" position="fixed" mode="ios" disabled="true"></ion-input>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-button (click)="modAlumno()">Modificar</ion-button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-button (click)="closeModal()">Cancelar</ion-button>
+                    </ion-col>
+                </ion-row>
             </ion-card-content>
-        </ion-card>
-    </ion-grid>
-</ion-card>
+        </ion-card> 
+            </ion-grid>   
+        </ng-template>
+    </ion-modal>
+</ion-content>

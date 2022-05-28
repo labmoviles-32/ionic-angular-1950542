@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { Alumno } from '../models/alumno';
 
 @Component({
   selector: 'app-alumno-lista',
@@ -11,21 +12,20 @@ export class AlumnoListaComponent implements OnInit {
   constructor( private bd : DatabaseService) { }
 
   tester : any = []
-  alumnos: any = []
+  lista: Alumno[] = []
   filtro : string = '';
 
   ngOnInit(): void {
     this.bd.getListaAlumnos().subscribe(resp => {
-      console.log(Object.values(resp));
+      console.log(resp);
       this.tester = Object.values(resp);
-      console.log(this.alumnos);
-      for (let test of this.tester)
-      {
-        if(test != null)
-        {
-         this.alumnos.push(test);
+      console.log(this.tester);
+      for(let test of this.tester){
+        if(test != null){
+          this.lista = this.lista.concat(test);
         }
       }
+      console.log(this.lista);
     })
   }
 
