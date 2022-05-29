@@ -1,0 +1,6 @@
+{
+	"appId": "com.lista.app",
+	"appName": "2ABRIL",
+	"webDir": "dist/2-abril",
+	"bundledWebRuntime": false
+}
